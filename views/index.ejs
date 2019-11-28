@@ -1,0 +1,58 @@
+<% include ../views/template/header.ejs %>
+<div id="main-menu" class="w3-bar w3-black">
+    <button class="w3-bar-item w3-button" id="single-SMS">TIN NHẮN ĐƠN</button>
+    <button class="w3-bar-item w3-button" id="multi-SMS">NHIỀU TIN NHẮN</button>
+</div>
+<div ng-controller="main-ctrl">
+    <div id="multi">
+        <form enctype="multipart/form-data">
+            <input type="file" id="xlsx-file">
+            <button id="myFormSubmit">Gửi</button>
+        </form>
+        <table class="w3-table-all">
+            <tr>
+                <th>STT</th>
+                <th>Người nhận</th>
+                <th>Nội dung</th>
+                <th>Trạng thái</th>
+            </tr>
+            <tr ng-repeat="i in messages_view">
+                <td>{{ $index }}</td>
+                <td> {{ i.to }} </td>
+                <td> {{ i.message.substring(0,20) + '...' }} </td>
+                <td> {{ i.status.name }} </td>
+            </tr>
+        </table>
+        
+    </div>
+    <div id="single">
+        <table class="w3-table-all">
+            <!-- <tr>
+                <td>Tên người gửi</td>
+                <td><input ng-model="message.from"></td>
+            </tr> -->
+            <tr>
+                <td>SĐT người nhận</td>
+                <td><input ng-model="message.to"></td>
+            </tr>
+            <tr>
+                <td>Nội dung tin nhắn</td>
+                <td><input type="textarea" ng-model="message.text"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button ng-click="send(message)">SEND</button><br>
+                    <p id="single_sttSMS"></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="/static/js/app.js"></script>
+<script src="/static/js/function.js"></script>
+<script src="/static/js/file_upload.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/socket.js"></script>
+<script src="/static/js/view.js"></script>
+<% include ../views/template/footer.ejs %>

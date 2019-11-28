@@ -1,0 +1,143 @@
+POST: /sms
+
+1/ Single SMS
+Request:
+{
+    "to": "recv_number String",
+    "text": "message_content String",
+    "function": 101,
+    "messageId": "String"
+}
+Response:
+    Case ("SUCCESS"):
+    {
+        "messages":[
+            {
+                "to": "recv_number String",
+                "status": {
+                    "id": 200,
+                    "name": "SUCCESS"
+                },
+                "messageId": "String"
+            }
+        ]
+    }
+    Case ("FAIL"):
+    {
+        "messages":[
+            {
+                "to": "recv_number String",
+                "status": {
+                    "id": 400,
+                    "name": "BAD_REQUEST"
+                },
+                "messageId": "String"
+            }
+        ]
+    }
+// 2/ Multi SMS
+// Request:
+// [{
+//     "to": "recv_number String",
+//     "text": "message_content String",
+//     "function": 101,
+//     "messageId": "String"
+// }]
+// Response:
+//     Case ("SUCCESS"):
+//     {
+//         "messages":[
+//             {
+//                 "to": "recv_number String",
+//                 "status": {
+//                     "id": 200,
+//                     "name": "status_name String"
+//                 },
+//                 "messageId": "String"
+//             }
+//             {
+//                 "to": "recv_number String",
+//                 "status": {
+//                     "id": 200,
+//                     "name": "status_name String"
+//                 },
+//                 "messageId": "String"
+//             }
+//         ]
+//     }
+//     Case ("FAIL"):
+//     {
+//         "messages":[
+//             {
+//                 "to": "recv_number String",
+//                 "status": {
+//                     "id": 400,
+//                     "name": "BAD_REQUEST"
+//                 },
+//                 "messageId": 
+//             }
+//             {
+//                 "to": "recv_number String",
+//                 "status": {
+//                     "id": 400,
+//                     "name": "BAD_REQUEST"
+//                 },
+//                 "messageId": "String"
+//             }
+//         ]
+//     }
+3/ Check account balance
+Request:{
+    "function": 102
+}
+Response: 
+    Case("SUCCESS")
+        {
+            "status": 200,
+            "balance": "String"
+        }
+    Case("FAIL")
+        {
+            "status": 500
+        }    
+4/ Add money
+Request: {
+    "seriNumber": "String",
+    "function": 103
+}
+Response: 
+    Case("SUCCESS"):
+    {
+        "status": 200
+    }
+    Case("FAIL"):
+    {
+        "status": 500
+    }
+5/ SMS Status:
+Case ("SUCCESS"):
+    {
+        "messages":[
+            {
+                "to": "recv_number String",
+                "status": {
+                    "id": 201,
+                    "name": "SENT"
+                },
+                "messageId": "String"
+            }
+        ]
+    }
+    Case ("FAIL"):
+    {
+        "messages":[
+            {
+                "to": "recv_number String",
+                "status": {
+                    "id": 401,
+                    "name": "CANT_SEND"
+                },
+                "messageId": "String"
+            }
+        ]
+    }

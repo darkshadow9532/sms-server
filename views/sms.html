@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type = "text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<meta name="view-port" content="width=device-width,initial-scale=1">
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<script type="text/javascript" src="sms.js"></script>
+	</head>
+	
+	<body>
+		<div class="w3-container">
+			<h3> ỨNG DỤNG GỬI TIN NHẮN BẰNG WEBSITE</h3>
+			<div>
+				<p> Nhập địa chỉ server gửi tin nhắn:
+				<input id="server" type="text" placeholder="http://192.168.0.1:8080">
+				<button id="set_server" style="display : inline">Set</button>
+				<button id="edit_server" style="display : none">Edit</button>
+				</p>
+			</div>
+			<div>
+				
+				<p> Số điện thoại <input id="phone_number" type="text" placeholder="Nhập số điện thoại"></p>
+				<P> Mật khẩu <input id="server_password" type="text" placeholder="Mật khẩu server"> </p>
+				<h5> Nội dung tin nhắn </h5> 
+				<textarea id="messenger_box" name="message" rows="10" cols="30" placeholder="Nhập nội dung tin nhắn"></textarea>
+				
+				<input id="submit_button" type="submit" value="Send">
+			</div>
+		</div>
+	</body>
+</html>
