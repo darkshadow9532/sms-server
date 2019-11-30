@@ -11,6 +11,8 @@ var singleSMS = {
         name: ""
     }
 };
+
+var multiSMS_Timeout = 0;
 // app.controller("cus", function($scope, $http, $interval, $timeout) {
     
 // });

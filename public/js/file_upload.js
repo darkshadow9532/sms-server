@@ -1,4 +1,5 @@
 $('#myFormSubmit').click(function (e) {
+    messages_all = [];
     var formData = new FormData();
 
     var fileSelect = document.getElementById("xlsx-file");
@@ -14,13 +15,14 @@ $('#myFormSubmit').click(function (e) {
         data : formData,
         success : function(res){
             console.log(res);
-            for (i in res.data){
-                messages_all.push({
-                    to: res.data.number,
-                    text: res.data.message,
-                    
-                })
-            }            
+            for (i in res){
+                messages_all.push(res[i]);
+            }
+            multiSMS_Timeout = 5000*res.length + 10;
+            $("#myFormSubmit").attr("disabled", true);
+            setTimeout(function(){
+                $("#myFormSubmit").attr("disabled", false);
+            }, multiSMS_Timeout);
         },
         error : function(err){
             console.log(err);

@@ -17,9 +17,9 @@
                 <th>Trạng thái</th>
             </tr>
             <tr ng-repeat="i in messages_view">
-                <td>{{ $index }}</td>
+                <td>{{ $index + 1 }}</td>
                 <td> {{ i.to }} </td>
-                <td> {{ i.message.substring(0,20) + '...' }} </td>
+                <td> {{ i.text.substring(0,20) + '...' }} </td>
                 <td> {{ i.status.name }} </td>
             </tr>
         </table>

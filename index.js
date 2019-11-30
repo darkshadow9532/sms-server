@@ -52,9 +52,9 @@ app.post("/sendSMS", function(req,res,next){
     };
     console.log(req_send);
     
-    let url = esp_url;
+    // let url = esp_url;
     
-    //let url = test_url;
+    let url = test_url;
     axios.post(url, req_send).then(response => {
         console.log("SUCCESS");
         console.log("esp_response:", response.data);
@@ -123,34 +123,37 @@ app.post("/fileUpload", upload.single("file"), function(req, res){
     var sheet_name_list = workbook.SheetNames;
     var data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
     console.log("xlsx to json:",data);
-    res.status(200).send(data);
-
-    //var url = test_url;
-    let url = esp_url;
-    var response_all = {
-        message:[]
-    }
-    let i = 0;
-    var send_SMSs = setInterval( function(){
+    var req_send = [];
+    for ( let i in data){
         if(data[i].number && data[i].message){
-            req_send = {
+            req_send[i] = {
                 to: data[i].number,
                 text: data[i].message,
                 function: 101,
-                messageId: data[i].number + "-" + Date.now()
+                messageId: data[i].number + "-" + (Date.now()+ '-' + i)
             }
-            console.log("json to request:", req_send);
-            axios.post(url, req_send).then(response => {
-                console.log("Res: ",response.data);
-                //response_all.message.push(response.data.message[0]);
-                
-                if(response.data.messages){
-                    let d = response.data.messages[0];
-                    let data_to_frontend;
-                    if ( d.messageId == req_send.messageId){
+        }
+    }
+    res.status(200).send(req_send);
+
+    var url = test_url;
+    // let url = esp_url;
+    let i = 0;
+    var send_SMSs = setInterval( function(){
+        console.log("json to request:", req_send[i]);
+        axios.post(url, req_send[i]).then(response => {
+            console.log("Res: ",response.data);
+            //response_all.message.push(response.data.message[0]);
+            
+            if(response.data.messages){
+                let d = response.data.messages[0];
+                //console.log('d:',d);
+                let data_to_frontend;
+                for( j in req_send ){
+                    if ( d.messageId == req_send[j].messageId){
                         data_to_frontend = {
                             to: d.to,
-                            text: req_send.text,
+                            text: req_send[j].text,
                             messageId: d.messageId,
                             status: d.status
                         }
@@ -158,34 +161,35 @@ app.post("/fileUpload", upload.single("file"), function(req, res){
                     else {
                         data_to_frontend = {
                             to: d.to,
-                            text: req_send.text,
+                            text: req_send[j].text,
                             messageId: d.messageId,
                             status: d.status
                         }
-                    }
-                    console.log("SUCCESS SENT");
-                    io.emit("statusSMS", data_to_frontend);                    
-                    //console.log("SENT TO " + response.messages[0].to + " SUCCESSFULLY!");
+                    }                    
                 }
-            })
-            .catch(error => {
-                console.log("ERROR");
-                //console.log(error);
-                if (error.response) {
-                    //console.log(error.response.data);
-                    //console.log(error.response.status);
-                    io.emit("statusSMS", error.response.data.messages[0]);
-                }
-                else console.log("404 ERROR");
-                
-                
-            })
-        }
-        if( i == (data.length - 1)){
+                console.log("SUCCESS SENT");
+                io.emit("statusSMS", data_to_frontend);
+                                
+                //console.log("SENT TO " + response.messages[0].to + " SUCCESSFULLY!");
+            }
+        })
+        .catch(error => {
+            console.log("ERROR");
+            //console.log(error);
+            if (error.response) {
+                //console.log(error.response.data);
+                //console.log(error.response.status);
+                io.emit("statusSMS", error.response.data.messages[0]);
+            }
+            else console.log("404 ERROR");
+            
+            
+        })
+        if( i == (req_send.length - 1)){
             clearInterval(send_SMSs);
         }
         i++;
-    },10000);
+    },5000);
     // for ( i in data){
     //     if(data[i].number && data[i].message){
     //         req_send = {

@@ -43,6 +43,7 @@ app.controller("main-ctrl", function($scope, $http, $interval, $timeout) {
     $scope.messages_view = [];
     $interval( function(){
         $scope.messages_view = messages_all;
+        
         singleSMS_status_view(singleSMS);
     }, 500);
 });
