@@ -11,7 +11,7 @@ $('#myFormSubmit').click(function (e) {
         method : 'POST',
         processData : false,
         contentType : false,
-        url : 'http://localhost:5003/fileUpload',
+        url : '/fileUpload',
         data : formData,
         success : function(res){
             console.log(res);
