@@ -13,7 +13,7 @@ var io = require("socket.io")(server);
 io.listen(5004);
 
 var esp_url = "http://192.168.3.127/sms";
-var test_url = "http://cretabase.kbvision.tv:5003/test1";
+var test_url = "http://localhost:5003/test1";
 // Socket
 io.on("connection", function(socket){
     socket.on("statusSMS", function(data){

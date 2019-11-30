@@ -1,4 +1,4 @@
-var socket = io("http://cretabase.kbvision.tv:5004");
+var socket = io("http://localhost:5004");
 
 socket.on("statusSMS", function(status){
     console.log("status:", status);
