@@ -52,9 +52,9 @@ app.post("/sendSMS", function(req,res,next){
     };
     console.log(req_send);
     
-    // let url = esp_url;
+    let url = esp_url;
     
-    let url = test_url;
+    // let url = test_url;
     axios.post(url, req_send).then(response => {
         console.log("SUCCESS");
         console.log("esp_response:", response.data);
@@ -136,8 +136,8 @@ app.post("/fileUpload", upload.single("file"), function(req, res){
     }
     res.status(200).send(req_send);
 
-    var url = test_url;
-    // let url = esp_url;
+    // var url = test_url;
+    let url = esp_url;
     let i = 0;
     var send_SMSs = setInterval( function(){
         console.log("json to request:", req_send[i]);
@@ -189,7 +189,7 @@ app.post("/fileUpload", upload.single("file"), function(req, res){
             clearInterval(send_SMSs);
         }
         i++;
-    },5000);
+    },10000);
     // for ( i in data){
     //     if(data[i].number && data[i].message){
     //         req_send = {

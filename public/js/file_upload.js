@@ -18,7 +18,7 @@ $('#myFormSubmit').click(function (e) {
             for (i in res){
                 messages_all.push(res[i]);
             }
-            multiSMS_Timeout = 5000*res.length + 10;
+            multiSMS_Timeout = 10000*res.length + 10;
             $("#myFormSubmit").attr("disabled", true);
             setTimeout(function(){
                 $("#myFormSubmit").attr("disabled", false);

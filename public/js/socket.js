@@ -1,4 +1,5 @@
-var socket = io("http://localhost:5004");
+var HOST = window.location.hostname;
+var socket = io(HOST + ':' + 5004);
 
 socket.on("statusSMS", function(status){
     console.log("status:", status);
