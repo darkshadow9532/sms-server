@@ -6,21 +6,44 @@
 <div ng-controller="main-ctrl">
     <div id="multi">
         <form enctype="multipart/form-data">
-            <input type="file" id="xlsx-file">
-            <button id="myFormSubmit">Gửi</button>
+            <table class="w3-table-all">
+                <tr>
+                    <td>Nhập file:</td>
+                    <td><input type="file" id="xlsx-file"></td>
+                </tr>
+                <tr>
+                    <td>
+                        Nội dung: 
+                    </td>
+                    <td>
+                        <textarea id="message_content" rows="4" cols="50" maxlength="500"></textarea>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button id="myFormSubmit">Gửi</button></td>
+                </tr>
+            </table>
+            
+            
         </form>
         <table class="w3-table-all">
             <tr>
                 <th>STT</th>
-                <th>Người nhận</th>
-                <th>Nội dung</th>
-                <th>Trạng thái</th>
+                <th>SỐ ĐIỆN THOẠI</th>
+                <th>c1</th>
+                <th>c2</th>
+                <th>c3</th>
+                <th>TRẠNG THÁI</th>
             </tr>
             <tr ng-repeat="i in messages_view">
-                <td>{{ $index + 1 }}</td>
+                <td> {{ $index + 1 }} </td>
                 <td> {{ i.to }} </td>
-                <td> {{ i.text.substring(0,20) + '...' }} </td>
-                <td> {{ i.status.name }} </td>
+                <td> {{ i.c1 }} </td>
+                <td> {{ i.c2 }} </td>
+                <td> {{ i.c3 }} </td>
+                <td> {{ i.status.name }}</td>
             </tr>
         </table>
         
@@ -37,7 +60,7 @@
             </tr>
             <tr>
                 <td>Nội dung tin nhắn</td>
-                <td><input type="textarea" ng-model="message.text"></td>
+                <td><textarea ng-model="message.text" rows="4" cols="50" maxlength="500"></textarea></td>
             </tr>
             <tr>
                 <td></td>

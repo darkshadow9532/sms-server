@@ -1,14 +1,16 @@
 $('#myFormSubmit').click(function (e) {
     messages_all = [];
     var formData = new FormData();
+    formData.append('message_content', $("#message_content").val());
 
     var fileSelect = document.getElementById("xlsx-file");
     if(fileSelect.files && fileSelect.files.length == 1){
-     var file = fileSelect.files[0]
-     formData.set("file", file , file.name);
+    var file = fileSelect.files[0]
+    formData.set("file", file , file.name);
     }
     $.ajax({
         method : 'POST',
+        enctype: 'multipart/form-data',
         processData : false,
         contentType : false,
         url : '/fileUpload',
@@ -18,7 +20,7 @@ $('#myFormSubmit').click(function (e) {
             for (i in res){
                 messages_all.push(res[i]);
             }
-            multiSMS_Timeout = 10000*res.length + 10;
+            multiSMS_Timeout = 5000*res.length + 10;
             $("#myFormSubmit").attr("disabled", true);
             setTimeout(function(){
                 $("#myFormSubmit").attr("disabled", false);

@@ -1,0 +1,12 @@
+Sent to server with correct syntax:
+SingleSMS:
+    request:
+    {
+        "to": "recv_number String",
+        "text": "message_content String"
+    }
+    response:
+    {
+        "to": "recv_number String",
+        "text": "message_content String"
+    }
